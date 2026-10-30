@@ -910,7 +910,7 @@ function AuthPage({ mode, setPage, onAuthSuccess }) {
 }
 
 function App() {
-  const [page, setPage] = useState("home");
+  const [page, setPage] = useState("login");
   const [selectedItem, setSelectedItem] = useState(null);
   const [currentUser, setCurrentUser] = useState(getStoredUser());
 

@@ -59,9 +59,11 @@ function Dashboard({ onBackHome, currentUser, onLogout }) {
   const token = localStorage.getItem("univo_token");
 
   // Load all user data from backend
+  // [activeTab] means: run loadAllData() every time the user switches to a different tab
+  // This ensures fresh data is always shown (e.g., a new borrow request appears immediately)
   useEffect(() => {
     loadAllData();
-  }, []);
+  }, [activeTab]);
 
   async function loadAllData() {
     if (!token) return;

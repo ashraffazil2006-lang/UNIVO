@@ -529,6 +529,10 @@ function ItemDetails({ item, onBack, setPage, currentUser, onLogout }) {
         setMessage(
           `Request sent successfully! Rental: ₹${rentalAmount} + Deposit: ₹${securityDeposit} = Total: ₹${totalAmount}. Waiting for owner approval.`
         );
+        // After 2 seconds, go to Dashboard so the user can see their request immediately
+        setTimeout(() => {
+          setPage("dashboard");
+        }, 2000);
       } else {
         setIsSuccess(false);
         setMessage(data.message || "Failed to submit request.");
@@ -910,9 +914,14 @@ function AuthPage({ mode, setPage, onAuthSuccess }) {
 }
 
 function App() {
-  const [page, setPage] = useState("login");
+  // Check if user is already logged in before deciding which page to show
+  const storedUser = getStoredUser();
+
+  // If storedUser is not null, it means the user was logged in before.
+  // So open Dashboard directly. Otherwise, show the Login page.
+  const [page, setPage] = useState(storedUser ? "dashboard" : "login");
   const [selectedItem, setSelectedItem] = useState(null);
-  const [currentUser, setCurrentUser] = useState(getStoredUser());
+  const [currentUser, setCurrentUser] = useState(storedUser);
 
   function goHome() {
     setPage("home");
